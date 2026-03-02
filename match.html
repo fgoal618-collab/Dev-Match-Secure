@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Domain Match</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <nav>
+    <h2>Dev-Match Secure</h2>
+  </nav>
+
+  <section class="hero">
+    <h1>Find Your Domain Team 🚀</h1>
+
+    <div class="match-controls">
+      <select id="domainSelect">
+        <option value="">Select Domain</option>
+        <option value="web">Web Development</option>
+        <option value="ai">Artificial Intelligence</option>
+        <option value="cyber">Cyber Security</option>
+        <option value="design">UI/UX Design</option>
+      </select>
+
+      <button onclick="findMatch()" class="start-btn">Find Match</button>
+    </div>
+
+    <div id="loading" style="display:none;">
+      <h3>🤖 AI is analysing profiles...</h3>
+    </div>
+
+    <div id="matchResults">
+
+    </div>
+
+    <div id="successPopup" class="popup">
+      🎉 Secure Collaboration Established
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Idea Vault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <h2>Dev-Match Secure</h2>
+</nav>
+
+<section class="hero">
+  <h1>🔐 Idea Vault</h1>
+
+  <textarea id="ideaInput" placeholder="Write your idea securely..." rows="6"></textarea>
+  <br><br>
+
+  <button class="start-btn" onclick="saveIdea()">Lock Idea</button>
+  <div id="blockchainStatus"></div>
+
+  <button class="start-btn" onclick="revealIdea()">Reveal Idea</button>
+  <div id="vaultDisplay"></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

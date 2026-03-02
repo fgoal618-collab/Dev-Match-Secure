@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dev-Match Secure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  
+ <nav class="navbar">
+
+  <h2 class="logo">Dev-Match Secure</h2>
+
+  <button class="start-btn" onclick="goToLogin()">
+    login/signup
+  </button>
+
+</nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Find Trusted Developers. Protect Your Ideas.</h1>
+    <p>
+      A secure platform that matches like-minded developers
+      while keeping your ideas safe and protected.
+    </p>
+
+  <button class="start-btn" onclick="goToSignup()">Get Matched</button>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+
+    <div class="card">
+      <h3>Smart Matching</h3>
+      <p>Find teammates based on skills, interests and goals.</p>
+    </div>
+
+    <div class="card">
+      <h3>Anonymous Connect</h3>
+      <p>Connect safely before revealing your identity.</p>
+    </div>
+
+    <div class="card">
+      <h3>Idea Vault</h3>
+      <p>Encrypted storage with ownership protection.</p>
+    </div>
+
+  </section>
+
+
+<script>
+function sendRequest(button) {
+    button.innerText = "Request Sent ✅";
+    button.disabled = true;
+}
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>

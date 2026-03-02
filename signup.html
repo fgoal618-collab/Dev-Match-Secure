@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup - Dev Match Secure</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <nav>
+    <h2>Dev-Match Secure</h2>
+  </nav>
+
+  <section class="hero">
+    <h1>Create Your Developer Profile</h1>
+
+    <form id="signupForm">
+      <input type="text" id="name" placeholder="Your Name" required><br><br>
+
+      <input type="text" id="skills" placeholder="Skills (e.g. AI, React, Python)" required><br><br>
+
+      <input type="text" id="interests" placeholder="Interests" required><br><br>
+
+      <input type="text" id="goals" placeholder="Your Goal (1 line)" required><br><br>
+
+      <button type="submit" class="start-btn">Save Profile</button>
+    </form>
+
+    <p style="margin-top: 20px; text-align: center;">
+      Already have an account? <a href="login.html" style="color: cyan; text-decoration: none;">Login Here</a>
+    </p>
+  </section>
+
+<script src="script.js"></script>
+<style>
+input {
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid cyan;
+  border-radius: 5px;
+  background-color: #1a1a2e;
+  color: white;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: #888;
+}
+
+button {
+    background-color: cyan;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #00d4d4;
+}
+
+button:disabled {
+    background-color: gray;
+    color: white;
+}
+
+a {
+  color: cyan;
+}
+</style>
+</body>
+</html>
