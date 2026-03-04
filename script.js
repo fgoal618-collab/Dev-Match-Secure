@@ -88,10 +88,7 @@ if(container){
     container.appendChild(card);
   });
 }
-card.querySelector(".connect-btn").addEventListener("click", function(){
-  alert("Request Accepted! Secure Chat Opened.");
-window.location.href = "chat.html";
-});
+
 function showVault(){
   const display = document.getElementById("vaultDisplay");
 
@@ -182,25 +179,29 @@ function findMatch(){
         name:"Rahul",
         skill:"Frontend Developer",
         match:"92%",
-        tags:["HTML","CSS","React"]
+        tags:["HTML","CSS","React"],
+        workStyle: "👑 Visionary Leader"
       },
       {
         name:"Sneha",
         skill:"Full Stack Developer",
         match:"87%",
-        tags:["NodeJS","MongoDB","API"]
+        tags:["NodeJS","MongoDB","API"],
+        workStyle: "⚡ Execution Master"
       },
       {
         name:"Vikram",
         skill:"Backend Developer",
         match:"90%",
-        tags:["Express","PostgreSQL","REST"]
+        tags:["Express","PostgreSQL","REST"],
+        workStyle: "🏗️ Strategic Builder"
       },
       {
         name:"Priya",
         skill:"UI/UX Developer",
         match:"88%",
-        tags:["Figma","CSS","JavaScript"]
+        tags:["Figma","CSS","JavaScript"],
+        workStyle: "🎨 Creative Innovator"
       }
     ],
 
@@ -209,25 +210,29 @@ function findMatch(){
         name:"Aman",
         skill:"Machine Learning",
         match:"95%",
-        tags:["Python","TensorFlow","AI"]
+        tags:["Python","TensorFlow","AI"],
+        workStyle: "🎨 Creative Innovator"
       },
       {
         name:"Priya",
         skill:"Data Scientist",
         match:"89%",
-        tags:["Data","ML","Analytics"]
+        tags:["Data","ML","Analytics"],
+        workStyle: "⚡ Execution Master"
       },
       {
         name:"Rohan",
         skill:"NLP Engineer",
         match:"91%",
-        tags:["PyTorch","NLP","BERT"]
+        tags:["PyTorch","NLP","BERT"],
+        workStyle: "🏗️ Strategic Builder"
       },
       {
         name:"Anjali",
         skill:"Computer Vision",
         match:"93%",
-        tags:["OpenCV","CNN","Python"]
+        tags:["OpenCV","CNN","Python"],
+        workStyle: "👑 Visionary Leader"
       }
     ]
   };
@@ -243,17 +248,20 @@ function findMatch(){
         tagHTML += `<span class="tag">${tag}</span>`;
       });
 
+      const workStyleInfo = user.workStyle ? `<p style="color: #00ffff; font-size: 13px; margin: 5px 0;"><strong>${user.workStyle}</strong></p>` : "";
+
       resultDiv.innerHTML += `
         <div class="card" data-name="${user.name}">
           <h3>👤 ${user.name}</h3>
           <p><strong>${user.skill}</strong></p>
           <h4>Match: ${user.match}</h4>
+          ${workStyleInfo}
           <div class="tags">${tagHTML}</div>
           <p style="font-size: 12px; color: #aaa;">Safe Collaborator • Karma Approved ⭐</p>
           <button class="start-btn send-request-btn" onclick="sendRequest(this, '${user.name}')">
             Send Request
           </button>
-          <div class="accepted-status" style="display:none; color: #00ff88; font-weight: bold; margin-top: 10px;">
+          <div class="accepted-status" style="display:none; color: #00ff88; font-weight: bold; margin-top: 10px; padding: 10px; background: #0a2a0a; border-radius: 5px; border: 1px solid #00ff88;">
             ✅ Connection Accepted!
           </div>
         </div>
@@ -268,6 +276,15 @@ function sendRequest(button, userName){
     return;
   }
 
+  // Get match percentage from card
+  const card = button.parentElement;
+  const matchText = card.querySelector("h4").innerText;
+  const matchPercent = matchText.replace("Match: ", "").replace("%", "");
+
+  // Store matched developer info
+  localStorage.setItem("matchedDevName", userName);
+  localStorage.setItem("skillMatchPercent", matchPercent);
+
   requestsCount++;
   button.innerText = "⏳ Waiting for Accept...";
   button.style.background = "orange";
@@ -275,11 +292,43 @@ function sendRequest(button, userName){
 
   setTimeout(()=>{
     button.style.display = "none";
+    
     const statusDiv = button.parentElement.querySelector(".accepted-status");
+    
+    // Calculate work style compatibility
+    const workStyle = JSON.parse(localStorage.getItem("userWorkStyle"));
+    let workStyleCompat = 92; // default
+    if(workStyle) {
+      workStyleCompat = Math.floor(85 + Math.random() * 15); // 85-100%
+    }
+    
+    const skillMatch = parseInt(matchPercent);
+    const overallCompat = Math.floor((skillMatch + workStyleCompat) / 2);
+    
+    // Update status with compatibility info
+    if(workStyle) {
+      statusDiv.innerHTML = `
+        ✅ Connection Accepted!<br/>
+        <span style="font-size: 11px; color: #00ff88;">Skill Match: ${matchPercent}% • Work Style: ${workStyleCompat}% • Overall: ${overallCompat}%<br/>
+        💬 Ready to chat?</span>
+        <button style="margin-top: 8px; padding: 6px 12px; background: #00ff88; border: none; border-radius: 4px; color: #000; font-weight: bold; cursor: pointer;" onclick="goToChat()">Start Anonymous Chat 🚀</button>
+      `;
+    } else {
+      statusDiv.innerHTML = `
+        ✅ Connection Accepted!<br/>
+        <span style="font-size: 11px; color: #00ff88;">Skill Match: ${matchPercent}%<br/>
+        💡 Complete the work-style quiz for better compatibility!</span>
+      `;
+    }
+    
     statusDiv.style.display = "block";
     showSuccessPopup();
     updateKarma();
   }, 3000);
+}
+
+function goToChat() {
+  window.location.href = "chat.html";
 }
 function updateKarma(){
 
@@ -352,4 +401,12 @@ function loginUser(event){
   }else{
       alert("Fill all fields");
   }
+}
+
+function generateCertificate(){
+  window.location.href = "authorization-form.html";
+}
+
+function goToCertificate() {
+  window.location.href = "authorization-form.html";
 }

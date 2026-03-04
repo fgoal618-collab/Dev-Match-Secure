@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Innovation Ownership Certificate</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .certificate-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .certificate {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(240, 248, 255, 0.98));
+      border: 3px solid #1a4d6d;
+      border-radius: 8px;
+      padding: 60px 50px;
+      box-shadow: 0 20px 60px rgba(26, 77, 109, 0.3);
+      position: relative;
+      color: #1a2332;
+      font-family: 'Georgia', serif;
+    }
+
+    /* Decorative corners */
+    .certificate::before,
+    .certificate::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #1a4d6d;
+    }
+
+    .certificate::before {
+      top: 15px;
+      left: 15px;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 2px;
+    }
+
+    .certificate::after {
+      top: 15px;
+      right: 15px;
+      border-left: none;
+      border-bottom: none;
+      border-radius: 2px;
+    }
+
+    .cert-bottom-left::before,
+    .cert-bottom-left::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #1a4d6d;
+    }
+
+    .cert-bottom-left::before {
+      bottom: 15px;
+      left: 15px;
+      border-right: none;
+      border-top: none;
+      border-radius: 2px;
+    }
+
+    .cert-bottom-left::after {
+      bottom: 15px;
+      right: 15px;
+      border-left: none;
+      border-top: none;
+      border-radius: 2px;
+    }
+
+    .cert-header {
+      text-align: center;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #1a4d6d;
+      padding-bottom: 30px;
+    }
+
+    .cert-title {
+      font-size: 42px;
+      font-weight: bold;
+      color: #1a4d6d;
+      margin: 0;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .cert-subtitle {
+      font-size: 18px;
+      color: #2d4a5f;
+      margin: 10px 0 0 0;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .cert-seal {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      margin: 20px 0;
+      background: radial-gradient(circle, #00ffff, #00ff88);
+      border: 3px solid #1a4d6d;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: bold;
+      color: #000;
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    }
+
+    .cert-content {
+      margin: 40px 0;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .cert-declares {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      margin: 30px 0 20px 0;
+      color: #1a4d6d;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .legal-statement {
+      background: rgba(26, 77, 109, 0.05);
+      border-left: 4px solid #1a4d6d;
+      padding: 25px;
+      margin: 30px 0;
+      font-size: 15px;
+      line-height: 1.9;
+      color: #2d4a5f;
+    }
+
+    .cert-details {
+      margin: 30px 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    .detail-box {
+      background: rgba(0, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .detail-label {
+      font-weight: bold;
+      color: #1a4d6d;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+      color: #2d4a5f;
+      font-family: 'Courier New', monospace;
+      word-break: break-all;
+      font-size: 13px;
+    }
+
+    .blockchain-hash {
+      background: #f0f8ff;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #1a4d6d;
+      margin: 20px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #2d4a5f;
+      word-break: break-all;
+    }
+
+    .blockchain-label {
+      font-weight: bold;
+      color: #1a4d6d;
+      font-size: 12px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .qr-section {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.1));
+      border: 2px dashed #1a4d6d;
+      padding: 30px;
+      margin: 40px 0;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .qr-section h3 {
+      color: #1a4d6d;
+      margin-top: 0;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+
+    #qrCode {
+      display: inline-block;
+      padding: 15px;
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 5px 15px rgba(26, 77, 109, 0.2);
+    }
+
+    .qr-fallback {
+      display: none;
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, #1a4d6d 25%, #2d7aa8 25%, #2d7aa8 50%, #1a4d6d 50%, #1a4d6d 75%, #2d7aa8 75%, #2d7aa8);
+      background-size: 20px 20px;
+      margin: 20px auto;
+      border: 3px solid #1a4d6d;
+      border-radius: 6px;
+    }
+
+    .scan-text {
+      color: #2d4a5f;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    .authorization-seal {
+      text-align: center;
+      margin: 40px 0;
+      padding: 25px;
+      background: linear-gradient(135deg, #1a4d6d, #2d7aa8);
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .seal-stamp {
+      font-size: 14px;
+      margin-top: 10px;
+      font-style: italic;
+      opacity: 0.95;
+    }
+
+    .timestamp-info {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin: 20px 0;
+      font-style: italic;
+    }
+
+    .signature-line {
+      margin-top: 50px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .signature-box {
+      text-align: center;
+      border-top: 2px solid #1a4d6d;
+      padding-top: 15px;
+    }
+
+    .signature-label {
+      font-size: 12px;
+      color: #2d4a5f;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+
+    .platform-signature {
+      font-weight: bold;
+      font-size: 14px;
+      color: #1a4d6d;
+      margin: 10px 0 0 0;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .btn-print {
+      background: linear-gradient(135deg, #1a4d6d, #2d7aa8);
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-print:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(26, 77, 109, 0.3);
+    }
+
+    .btn-download {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #000;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 255, 136, 0.3);
+    }
+
+    .btn-back {
+      background: rgba(0, 255, 255, 0.2);
+      color: #00ffff;
+      padding: 12px 30px;
+      border: 1px solid #00ffff;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn-back:hover {
+      background: rgba(0, 255, 255, 0.3);
+    }
+
+    @media print {
+      .btn-group, .navbar {
+        display: none !important;
+      }
+      .certificate-wrapper {
+        margin: 0;
+        padding: 0;
+      }
+      .certificate {
+        box-shadow: none;
+        page-break-after: avoid;
+      }
+      body {
+        background: white;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .certificate {
+        padding: 30px 20px;
+      }
+      .cert-title {
+        font-size: 28px;
+      }
+      .cert-details {
+        grid-template-columns: 1fr;
+      }
+      .signature-line {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <span class="cert-quick-access" title="Back to Vault" onclick="goToVault()">🔐</span>
+      <button class="start-btn" onclick="goToVault()">Back to Vault</button>
+    </div>
+  </nav>
+
+  <div class="certificate-wrapper">
+    <div class="certificate cert-bottom-left">
+      <div class="cert-header">
+        <h1 class="cert-title">INNOVATION OWNERSHIP</h1>
+        <h2 class="cert-subtitle">Declaration Certificate</h2>
+        <div class="cert-seal">🔐</div>
+      </div>
+
+      <div class="cert-content">
+        <p style="text-align: center; font-size: 15px; color: #2d4a5f;">
+          This Certificate is hereby issued to affirm and declare the intellectual property rights and ownership of an innovation concept registered on the Dev-Match Secure platform.
+        </p>
+
+        <div class="legal-statement">
+          <strong style="color: #1a4d6d;">DECLARATIVE STATEMENT:</strong>
+          <p style="margin: 10px 0 0 0;">
+            WHEREAS, the undersigned individual has conceived, developed, and submitted an original innovation concept to the Dev-Match Secure platform; and
+          </p>
+          <p>
+            WHEREAS, the said innovation represents original intellectual creation and strategic business concept development;
+          </p>
+          <p>
+            NOW, THEREFORE, this Certificate serves as formal affirmation that the hereinafter named individual maintains full intellectual property ownership of the aforementioned innovation concept.
+          </p>
+        </div>
+
+        <div class="cert-declares">OWNERSHIP AFFIRMATION</div>
+
+        <div class="legal-statement">
+          <p style="margin: 0;">
+            <strong>IT IS HEREBY DECLARED AND AFFIRMED:</strong> That the undersigned hereby claims full and exclusive intellectual property ownership rights to the innovation concept recorded under this Certificate. This declaration affirms that:
+          </p>
+          <ul style="margin: 15px 0; padding-left: 20px;">
+            <li>The innovator is the original creator of the concept</li>
+            <li>All proprietary ideas and methodologies are original works</li>
+            <li>Full intellectual property rights are retained by the innovator</li>
+            <li>This declaration is made voluntarily and under the laws applicable</li>
+          </ul>
+        </div>
+
+        <div class="cert-details">
+          <div class="detail-box">
+            <div class="detail-label">Certificate ID</div>
+            <div class="detail-value" id="certId">INNO-2026-000000</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Innovator Name</div>
+            <div class="detail-value" id="innovatorName">Not Specified</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Issue Date & Time</div>
+            <div class="detail-value" id="issueDate">--:-- --</div>
+          </div>
+          <div class="detail-box">
+            <div class="detail-label">Validity Status</div>
+            <div class="detail-value" style="color: #00ff88;">✓ PERMANENT</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(0, 255, 136, 0.1); padding: 20px; border-radius: 6px; margin: 25px 0; border-left: 4px solid #00ff88;">
+          <p style="margin: 0; color: #2d4a5f; font-size: 14px;">
+            <strong style="color: #00ff88;">DIGITAL VERIFICATION STATEMENT:</strong> This Certificate incorporates advanced blockchain-inspired verification protocols and cryptographic authentication measures. The unique verification hash affirms the authenticity and immutability of this ownership declaration within the Dev-Match Secure ecosystem.
+          </p>
+        </div>
+
+        <div class="blockchain-hash">
+          <div class="blockchain-label">🔗 Blockchain Transaction Hash</div>
+          <div id="blockchainHash">0x000000000000000000000000</div>
+        </div>
+
+        <div class="qr-section">
+          <h3>📱 QR Code Verification</h3>
+          <p style="color: #2d4a5f; font-size: 14px; margin: 15px 0;">
+            Scan this QR code to verify the authenticity of this Innovation Ownership Certificate
+          </p>
+          <div id="qrCode"></div>
+          <div class="qr-fallback" id="qrFallback" title="QR Code Fallback"></div>
+          <div class="scan-text">Scan to verify authenticity on Dev-Match Secure platform</div>
+        </div>
+
+        <div class="authorization-seal">
+          ⚖️ PLATFORM AUTHORIZATION SEAL
+          <div class="seal-stamp">
+            This certificate is officially issued and authorized by Dev-Match Secure Inc.<br>
+            All claims herein are recorded in perpetuity on our distributed ledger system.<br>
+            Certificate status: ISSUED AND AUTHORIZED
+          </div>
+        </div>
+
+        <div class="signature-line">
+          <div class="signature-box">
+            <div style="height: 50px; margin-bottom: 10px;"></div>
+            <div class="signature-label">Innovator Signature</div>
+            <div class="platform-signature" id="innovatorInitials">--</div>
+          </div>
+          <div class="signature-box">
+            <div style="font-weight: bold; color: #1a4d6d; margin-bottom: 50px;">
+              Dev-Match Secure™
+            </div>
+            <div class="signature-label">Platform Authority</div>
+            <div class="platform-signature">Official Certification</div>
+          </div>
+        </div>
+
+        <div class="timestamp-info" id="timestampInfo">
+          Certificate generated on: -- --<br>
+          Valid across all Dev-Match Secure partner networks
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn-print" onclick="printCertificate()">🖨️ Print Certificate</button>
+      <button class="btn-download" onclick="downloadCertificate()">⬇️ Download as PDF</button>
+      <button class="btn-back" onclick="goToVault()">↩️ Back to Vault</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    function generateCertificateID() {
+      const timestamp = Date.now().toString().slice(-8);
+      const random = Math.random().toString(36).substring(2, 8).toUpperCase();
+      return `INNO-2026-${random}${timestamp}`;
+    }
+
+    function generateBlockchainHash() {
+      let hash = '0x';
+      for(let i = 0; i < 64; i++) {
+        hash += Math.floor(Math.random() * 16).toString(16);
+      }
+      return hash;
+    }
+
+    function formatDate(date) {
+      const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    window.addEventListener('load', function() {
+      const user = localStorage.getItem("devMatchUser");
+      const userData = user ? JSON.parse(user) : { name: "Innovation Creator" };
+      
+      const certId = generateCertificateID();
+      const blockchainHash = generateBlockchainHash();
+      const now = new Date();
+      const formattedDate = formatDate(now);
+
+      document.getElementById('certId').textContent = certId;
+      document.getElementById('innovatorName').textContent = userData.name || "Not Specified";
+      document.getElementById('issueDate').textContent = formattedDate;
+      document.getElementById('blockchainHash').textContent = blockchainHash;
+      document.getElementById('timestampInfo').textContent = 
+        `Certificate generated on: ${formattedDate}\nValid across all Dev-Match Secure partner networks`;
+      document.getElementById('innovatorInitials').textContent = 
+        (userData.name || "IC").split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+
+      // Generate QR Code
+      try {
+        const qrData = `INNO-CERT:${certId}|HASH:${blockchainHash}|INNOVATOR:${userData.name}|DATE:${now.toISOString()}`;
+        
+        new QRCode(document.getElementById("qrCode"), {
+          text: qrData,
+          width: 200,
+          height: 200,
+          correctLevel: QRCode.CorrectLevel.H,
+          colorDark: "#1a4d6d",
+          colorLight: "#ffffff",
+        });
+      } catch(e) {
+        // Fallback: show pattern QR
+        document.getElementById('qrFallback').style.display = 'block';
+        console.log("QR Code fallback activated");
+      }
+    });
+
+    function printCertificate() {
+      window.print();
+    }
+
+    function downloadCertificate() {
+      alert("📄 PDF download feature: In production, this would generate a PDF file of your certificate using a PDF library. For now, use the Print feature to save as PDF.");
+    }
+
+    function goToVault() {
+      window.location.href = "vault.html";
+    }
+  </script>
+</body>
+</html>

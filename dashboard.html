@@ -3,24 +3,122 @@
 <head>
   <title>Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-header {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.1));
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+      padding: 40px 20px;
+    }
+
+    .dashboard-header h1 {
+      margin-bottom: 10px;
+    }
+
+    #karmaScore {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #00ff88;
+      margin-bottom: 20px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 30px 0;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #00ff88, #00ffff);
+    }
+
+    #quizStatusDiv {
+      margin-top: 30px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      border-radius: 12px;
+      animation: slideUp 0.6s ease-out;
+    }
+
+    #quizStatusDiv p {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .hero {
+      padding: 40px 20px;
+    }
+  </style>
 </head>
 
 <body>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <span class="cert-quick-access" title="Generate Ownership Certificate" onclick="goToCertificate()">📜</span>
+      <button class="start-btn" onclick="window.location.href='index.html'">Logout</button>
+    </div>
+  </nav>
+
+  <section class="dashboard-header">
     <h3 id="karmaScore">⭐ Karma Score: 0</h3>
+    <h1>Welcome, <span id="username"></span> 👋</h1>
+    <p style="color: #b0b8c8;">Your secure developer dashboard. Complete your profile to start finding amazing team members!</p>
+  </section>
 
-<nav>
-  <h2>Dev-Match Secure</h2>
-</nav>
+  <section class="hero">
+    <div class="button-group">
+      <button class="start-btn btn-primary" onclick="goToQuiz()" style="min-width: 200px;">
+        📊 Take Work Style Quiz
+      </button>
+      <button class="start-btn" onclick="goToMatch()" style="min-width: 200px;">
+        🚀 Smart Match
+      </button>
+    </div>
 
-<section class="hero">
-  <h1>Welcome, <span id="username"></span> 👋</h1>
+    <div id="quizStatusDiv" style="display: none;"></div>
 
-  <p>Your secure developer dashboard</p>
-
-  <button class="start-btn" onclick="goToMatch()">Smart Match</button>
-</section>
+    <div class="button-group" style="margin-top: 30px;">
+      <button class="start-btn" onclick="window.location.href='authorization-form.html'" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.3), rgba(0, 255, 255, 0.3)); border: 1px solid rgba(0, 255, 136, 0.5); color: #00ffff; min-width: 200px;">
+        📋 Innovation Authorization Certificate
+      </button>
+    </div>
+  </section>
 
 <script src="script.js"></script>
+<script>
+  function goToQuiz() {
+    window.location.href = "quiz.html";
+  }
+
+  window.addEventListener('load', function() {
+    const workStyle = localStorage.getItem("userWorkStyle");
+    const statusDiv = document.getElementById("quizStatusDiv");
+    
+    if(workStyle) {
+      const style = JSON.parse(workStyle);
+      statusDiv.style.display = "block";
+      statusDiv.innerHTML = `
+        <p>✅ Quiz Completed: ${style.icon} ${style.type}</p>
+        <p style="font-size: 14px; color: #b0b8c8; margin-top: 8px;">Your primary strengths: ${style.traits.join(", ")}</p>
+        <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 255, 0.2);">
+          <p style="color: #00ff88; margin: 8px 0;">💼 Suggested Team Role: <strong>${style.teamRole}</strong></p>
+          <p style="font-size: 13px; color: #b0b8c8; margin: 8px 0;">${style.roleDesc}</p>
+        </div>
+      `;
+    }
+  });
+</script>
 
 </body>
 </html>

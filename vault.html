@@ -3,26 +3,172 @@
 <head>
   <title>Idea Vault</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .vault-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: linear-gradient(135deg, rgba(26, 42, 55, 0.9), rgba(30, 50, 65, 0.9));
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    .vault-container h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #00ffff;
+      margin-top: 0;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .vault-container p {
+      color: #b0b8c8;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .vault-container textarea {
+      width: 100%;
+      padding: 16px;
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      min-height: 150px;
+      transition: all 0.3s;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+    }
+
+    .vault-container textarea:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      background: rgba(11, 15, 25, 0.95);
+    }
+
+    .vault-container textarea::placeholder {
+      color: #7a8194;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .button-group button {
+      flex: 1;
+      min-width: 150px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      border: none;
+      border-radius: 8px;
+      color: #000;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+    }
+
+    .button-group button:hover {
+      background: linear-gradient(135deg, #00ff88, #00ffff);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 255, 136, 0.3);
+    }
+
+    #blockchainStatus {
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      color: #00ffff;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    #vaultDisplay {
+      margin-top: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
+      border-radius: 8px;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    #vaultDisplay .card {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #vaultDisplay h3 {
+      color: #00ffff;
+      margin-top: 0;
+    }
+
+    #vaultDisplay p {
+      color: #b0b8c8;
+    }
+
+    .hero {
+      padding: 40px 20px;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <h2>Dev-Match Secure</h2>
-</nav>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <span class="cert-quick-access" title="Generate Ownership Certificate" onclick="goToCertificate()">📜</span>
+      <button class="start-btn" onclick="window.location.href='dashboard.html'">Back</button>
+    </div>
+  </nav>
 
-<section class="hero">
-  <h1>🔐 Idea Vault</h1>
+  <section class="hero">
+    <div class="vault-container">
+      <h1>🔐 Idea Vault</h1>
+      <p>Store your innovative ideas safely. All data is encrypted with blockchain timestamp protection.</p>
 
-  <textarea id="ideaInput" placeholder="Write your idea securely..." rows="6"></textarea>
-  <br><br>
+      <textarea id="ideaInput" placeholder="Write your brilliant idea here... Keep it concise but descriptive."></textarea>
 
-  <button class="start-btn" onclick="saveIdea()">Lock Idea</button>
-  <div id="blockchainStatus"></div>
+      <div class="button-group">
+        <button class="start-btn" onclick="saveIdea()">🔒 Lock Idea</button>
+        <button class="start-btn" onclick="revealIdea()">🔓 Reveal Idea</button>
+        <button class="start-btn" onclick="window.location.href='authorization-form.html'" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.3), rgba(0, 255, 255, 0.3)); border: 1px solid rgba(0, 255, 136, 0.5); color: #00ffff;">📋 Authorization Certificate</button>
+      </div>
 
-  <button class="start-btn" onclick="revealIdea()">Reveal Idea</button>
-  <div id="vaultDisplay"></div>
-</section>
+      <div id="blockchainStatus"></div>
+      <div id="vaultDisplay"></div>
+    </div>
+  </section>
 
 <script src="script.js"></script>
 </body>

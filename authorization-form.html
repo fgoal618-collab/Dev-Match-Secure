@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Innovation Authorization Certificate - Form</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-wrapper {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: linear-gradient(135deg, rgba(26, 42, 55, 0.95), rgba(30, 50, 65, 0.95));
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 16px;
+      padding: 50px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 40px;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+      padding-bottom: 30px;
+    }
+
+    .form-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #00ffff;
+      margin: 0 0 10px 0;
+      letter-spacing: 1px;
+    }
+
+    .form-header p {
+      color: #b0b8c8;
+      font-size: 14px;
+      margin: 10px 0 0 0;
+    }
+
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #00ffff;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      box-sizing: border-box;
+      transition: all 0.3s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      background: rgba(11, 15, 25, 0.95);
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: #7a8194;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: #b0b8c8;
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-generate {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #000;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-generate:hover {
+      background: linear-gradient(135deg, #00ff88, #00ffff);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(0, 255, 136, 0.4);
+    }
+
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+
+    .btn-cancel {
+      background: rgba(0, 255, 255, 0.1);
+      color: #00ffff;
+      padding: 14px 40px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-cancel:hover {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: rgba(0, 255, 255, 0.5);
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+      font-weight: 500;
+    }
+
+    .info-box {
+      background: rgba(0, 255, 136, 0.1);
+      border-left: 4px solid #00ff88;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 30px;
+      font-size: 13px;
+      color: #b0b8c8;
+      line-height: 1.6;
+    }
+
+    .info-box strong {
+      color: #00ff88;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 30px 20px;
+      }
+
+      .form-header h1 {
+        font-size: 24px;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn-generate, .btn-cancel {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <button class="start-btn" onclick="goBack()">↩️ Back</button>
+    </div>
+  </nav>
+
+  <div class="form-wrapper">
+    <div class="form-container">
+      <div class="form-header">
+        <h1>🔐 Innovation Authorization Certificate</h1>
+        <p>Generate your official ownership declaration for your innovation</p>
+      </div>
+
+      <div class="info-box">
+        <strong>ℹ️ How It Works:</strong> Provide your innovation details below. Your professional, blockchain-verified certificate will be generated instantly with a unique ID, official timestamp, and cryptographic verification hash.
+      </div>
+
+      <form id="authorizationForm">
+        <div class="form-group">
+          <label class="form-label">📝 Innovator Full Name</label>
+          <input 
+            type="text" 
+            id="innovatorName" 
+            class="form-input" 
+            placeholder="Enter your full legal name (as you would use for official documents)"
+            required
+          >
+          <div class="error-message" id="nameError">Please enter your full name</div>
+          <div class="form-hint">Used for official certificate documentation</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">💡 Innovation / Idea Title</label>
+          <input 
+            type="text" 
+            id="ideaTitle" 
+            class="form-input" 
+            placeholder="Give your innovation a concise, memorable title"
+            required
+          >
+          <div class="error-message" id="titleError">Please enter an innovation title</div>
+          <div class="form-hint">Maximum 80 characters, should be clear and specific</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">📋 Innovation Description</label>
+          <textarea 
+            id="ideaDescription" 
+            class="form-textarea" 
+            placeholder="Describe your innovation in detail. Explain what it is, how it works, and why it's valuable. Include key features and benefits."
+            required
+          ></textarea>
+          <div class="error-message" id="descriptionError">Please enter an innovation description (minimum 50 characters)</div>
+          <div class="form-hint">Provide sufficient detail to clearly establish ownership. Minimum 50 characters recommended.</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🏢 Company / Organization (Optional)</label>
+          <input 
+            type="text" 
+            id="company" 
+            class="form-input" 
+            placeholder="Your company name (leave blank if individual innovator)"
+          >
+          <div class="form-hint">If developed as part of an organization, specify here</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">📧 Email Address (Optional)</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-input" 
+            placeholder="Your contact email for certificate verification"
+          >
+          <div class="form-hint">Used for certificate verification and future communications</div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-generate">
+            ✨ Generate Certificate
+          </button>
+          <button type="button" class="btn-cancel" onclick="goBack()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    document.getElementById('authorizationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Clear all error messages
+      document.getElementById('nameError').style.display = 'none';
+      document.getElementById('titleError').style.display = 'none';
+      document.getElementById('descriptionError').style.display = 'none';
+
+      // Get form values
+      const innovatorName = document.getElementById('innovatorName').value.trim();
+      const ideaTitle = document.getElementById('ideaTitle').value.trim();
+      const ideaDescription = document.getElementById('ideaDescription').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      // Validation
+      let hasErrors = false;
+
+      if (!innovatorName) {
+        document.getElementById('nameError').style.display = 'block';
+        hasErrors = true;
+      }
+
+      if (!ideaTitle) {
+        document.getElementById('titleError').style.display = 'block';
+        hasErrors = true;
+      }
+
+      if (!ideaDescription || ideaDescription.length < 30) {
+        document.getElementById('descriptionError').textContent = 
+          ideaDescription ? 'Description must be at least 30 characters' : 'Please enter an innovation description';
+        document.getElementById('descriptionError').style.display = 'block';
+        hasErrors = true;
+      }
+
+      if (hasErrors) {
+        alert('⚠️ Please fill in all required fields correctly.');
+        return;
+      }
+
+      // Store form data in localStorage
+      const innovationData = {
+        innovatorName,
+        ideaTitle,
+        ideaDescription,
+        company,
+        email,
+        formSubmittedAt: new Date().toISOString()
+      };
+
+      localStorage.setItem('innovationAuthData', JSON.stringify(innovationData));
+
+      // Redirect to certificate generation page
+      window.location.href = 'authorization-certificate.html';
+    });
+
+    function goBack() {
+      // Check where user came from
+      const referrer = document.referrer;
+      if (referrer.includes('vault.html')) {
+        window.location.href = 'vault.html';
+      } else if (referrer.includes('dashboard.html')) {
+        window.location.href = 'dashboard.html';
+      } else {
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>

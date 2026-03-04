@@ -3,60 +3,136 @@
 <head>
   <title>Dev-Match Secure</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .features {
+      background: linear-gradient(180deg, rgba(0, 255, 255, 0.05) 0%, rgba(0, 255, 136, 0.05) 50%, transparent 100%);
+      padding: 80px 40px;
+    }
+
+    .features .card h3::before {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      border-radius: 12px;
+      margin: 0 auto 15px;
+    }
+
+    .feature-1 h3::before {
+      content: "🎯";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 136, 0.2));
+      font-size: 30px;
+    }
+
+    .feature-2 h3::before {
+      content: "🔐";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 136, 0.2));
+      font-size: 30px;
+    }
+
+    .feature-3 h3::before {
+      content: "🛡️";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 136, 0.2));
+      font-size: 30px;
+    }
+
+    .info-section {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 255, 136, 0.05));
+      padding: 60px 40px;
+      text-align: center;
+      border-top: 1px solid rgba(0, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .info-section h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #00ffff;
+    }
+
+    .info-section p {
+      font-size: 16px;
+      color: #b0b8c8;
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.7;
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- Navbar -->
-  
- <nav class="navbar">
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <button class="start-btn" onclick="goToLogin()" style="background: linear-gradient(135deg, #00ffff, #00ff88); color: #000;">
+      Login / Signup
+    </button>
+  </nav>
 
-  <h2 class="logo">Dev-Match Secure</h2>
-
-  <button class="start-btn" onclick="goToLogin()">
-    login/signup
-  </button>
-
-</nav>
   <!-- Hero Section -->
   <section class="hero">
     <h1>Find Trusted Developers. Protect Your Ideas.</h1>
-    <p>
-      A secure platform that matches like-minded developers
-      while keeping your ideas safe and protected.
-    </p>
-
-  <button class="start-btn" onclick="goToSignup()">Get Matched</button>
+    <p>A secure platform that matches like-minded developers while keeping your ideas safe and protected.</p>
+    <button class="start-btn" onclick="goToSignup()">Get Started 🚀</button>
   </section>
 
   <!-- Features -->
   <section class="features">
-
-    <div class="card">
+    <div class="card feature-1">
       <h3>Smart Matching</h3>
-      <p>Find teammates based on skills, interests and goals.</p>
+      <p>Find teammates based on skills, interests, work styles, and compatibility. AI-powered matching for perfect team chemistry.</p>
     </div>
 
-    <div class="card">
+    <div class="card feature-2">
       <h3>Anonymous Connect</h3>
-      <p>Connect safely before revealing your identity.</p>
+      <p>Chat securely before revealing your identity. Complete work-style quiz to enhance compatibility and team dynamics.</p>
     </div>
 
-    <div class="card">
+    <div class="card feature-3">
       <h3>Idea Vault</h3>
-      <p>Encrypted storage with ownership protection.</p>
+      <p>Encrypted storage with blockchain timestamp protection. Team access only. Your innovation is safe with us.</p>
     </div>
 
+    <div class="card" style="background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1)); border: 1px solid rgba(0, 255, 136, 0.3);">
+      <div style="font-size: 40px; margin-bottom: 15px;">�</div>
+      <h3>Authorization Certificate</h3>
+      <p>Generate professional Innovation Authorization Certificates. Establish formal IP ownership with unique IDs, blockchain verification hashes, and investor-ready documentation.</p>
+    </div>
   </section>
 
+  <!-- Info Section -->
+  <section class="info-section">
+    <h2>Why Dev-Match Secure?</h2>
+    <p>Finding the right team members is crucial. We combine skill matching with personality compatibility to ensure you find developers who not just have the right skills, but also work well with your style.</p>
+    <button class="start-btn" onclick="goToSignup()">Join the Community 🤝</button>
+  </section>
 
-<script>
-function sendRequest(button) {
-    button.innerText = "Request Sent ✅";
-    button.disabled = true;
-}
-</script>
-<script src="script.js"></script>
+  <script>
+    function sendRequest(button) {
+      button.innerText = "Request Sent ✅";
+      button.disabled = true;
+    }
+  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>

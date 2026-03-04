@@ -1,28 +1,408 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Secure Chat</title>
+  <title>Anonymous Chat</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .chat-wrapper {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #111827;
+      border-radius: 12px;
+      border: 1px solid #00ffff;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #000;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .compatibility-banner {
+      background: #0b0f19;
+      border-bottom: 1px solid #00ffff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .compat-item {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .compat-item h4 {
+      margin: 0;
+      color: #00ffff;
+      font-size: 14px;
+    }
+
+    .compat-item p {
+      margin: 5px 0 0 0;
+      color: #fff;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .chat-container {
+      height: 400px;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #0b0f19;
+    }
+
+    .message {
+      display: flex;
+      margin-bottom: 10px;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message.user {
+      justify-content: flex-end;
+    }
+
+    .message.bot {
+      justify-content: flex-start;
+    }
+
+    .message-content {
+      max-width: 60%;
+      padding: 12px 15px;
+      border-radius: 8px;
+      word-wrap: break-word;
+    }
+
+    .message.user .message-content {
+      background: #00ffff;
+      color: #000;
+      border-bottom-right-radius: 2px;
+    }
+
+    .message.bot .message-content {
+      background: #1a1f2e;
+      color: #fff;
+      border-bottom-left-radius: 2px;
+      border: 1px solid #00ffff;
+    }
+
+    .chat-input-area {
+      background: #111827;
+      padding: 15px;
+      border-top: 1px solid #00ffff;
+      display: flex;
+      gap: 10px;
+    }
+
+    #chatInput {
+      flex: 1;
+      padding: 12px;
+      background: #0b0f19;
+      border: 1px solid #00ffff;
+      border-radius: 5px;
+      color: #fff;
+      font-family: Arial;
+    }
+
+    #chatInput::placeholder {
+      color: #666;
+    }
+
+    #chatInput:focus {
+      outline: none;
+      border-color: #00ff88;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    .send-btn {
+      padding: 12px 20px;
+      background: #00ffff;
+      border: none;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .send-btn:hover {
+      background: #00ff88;
+      transform: translateY(-2px);
+    }
+
+    .chat-footer {
+      background: #0b0f19;
+      padding: 10px;
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+      border-top: 1px solid #00ffff;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      background: #0b0f19;
+      border-top: 1px solid #00ffff;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      padding: 10px 15px;
+      background: #1a1f2e;
+      border: 1px solid #00ffff;
+      color: #00ffff;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .action-btn:hover {
+      background: #00ffff;
+      color: #000;
+    }
+
+    .end-chat-btn {
+      background: #ff4444;
+      color: #fff;
+      border-color: #ff4444;
+    }
+
+    .end-chat-btn:hover {
+      background: #cc0000;
+      color: #fff;
+      border-color: #cc0000;
+    }
+
+    .match-alert {
+      background: #1a3a1a;
+      border: 1px solid #00ff88;
+      padding: 10px;
+      border-radius: 5px;
+      color: #00ff88;
+      font-size: 12px;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <span class="cert-quick-access" title="Generate Ownership Certificate" onclick="goToCertificate()">📜</span>
+      <button class="start-btn" onclick="goToDashboard()">Back to Dashboard</button>
+    </div>
+  </nav>
 
-<nav>
-  <h2>Dev-Match Secure</h2>
-</nav>
+  <section class="hero">
+    <div class="chat-wrapper">
+      <div class="chat-header">
+        🔐 Anonymous Developer Chat
+      </div>
 
-<section class="hero">
-  <h1>💬 Secure Team Chat</h1>
+      <div class="compatibility-banner" id="compatibilityBanner">
+        <div class="compat-item">
+          <h4>Skill Match</h4>
+          <p id="skillMatch">92%</p>
+        </div>
+        <div class="compat-item">
+          <h4>Work Style</h4>
+          <p id="workStyleMatch">94%</p>
+        </div>
+        <div class="compat-item">
+          <h4>Overall</h4>
+          <p id="overallCompatibility">93%</p>
+        </div>
+      </div>
 
-  <div id="chatBox" class="card" style="height:200px; overflow-y:auto;"></div>
+      <div class="match-alert" id="matchAlert" style="margin: 10px;">
+        💡 You both completed the work-style quiz. Great team dynamics expected!
+      </div>
 
-  <br>
+      <div class="chat-container" id="chatBox"></div>
 
-  <input type="text" id="chatInput" placeholder="Type secure message..." />
-  <button class="start-btn" onclick="sendMessage()">Send</button>
+      <div class="chat-input-area">
+        <input 
+          type="text" 
+          id="chatInput" 
+          placeholder="Chat anonymously... your identity is protected 🔒"
+          onkeypress="if(event.key==='Enter') sendChatMessage()">
+        <button class="send-btn" onclick="sendChatMessage()">Send</button>
+      </div>
 
-</section>
+      <div class="action-buttons">
+        <button class="action-btn" onclick="shareIdea()">💡 Share Idea</button>
+        <button class="action-btn" onclick="revealIdentity()">👤 Reveal Identity</button>
+        <button class="action-btn end-chat-btn" onclick="endChat()">❌ End Chat</button>
+      </div>
 
-<script src="script.js"></script>
+      <div class="chat-footer">
+        All messages are encrypted. Your identity remains anonymous until you choose to reveal it. 🔐
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    let matchedDevName = localStorage.getItem("matchedDevName") || "Anonymous Dev";
+    let skillMatchPercent = localStorage.getItem("skillMatchPercent") || "92";
+    let identityRevealed = false;
+
+    window.addEventListener('load', function() {
+      initializeChat();
+      displayInitialMessage();
+    });
+
+    function initializeChat() {
+      const workStyle = JSON.parse(localStorage.getItem("userWorkStyle"));
+      
+      if(skillMatchPercent) {
+        document.getElementById("skillMatch").textContent = skillMatchPercent + "%";
+      }
+      
+      if(workStyle) {
+        const workStyleCompat = Math.floor(80 + Math.random() * 20); // 80-100%
+        document.getElementById("workStyleMatch").textContent = workStyleCompat + "%";
+        
+        const skillNum = parseInt(skillMatchPercent);
+        const styleNum = workStyleCompat;
+        const overall = Math.floor((skillNum + styleNum) / 2);
+        document.getElementById("overallCompatibility").textContent = overall + "%";
+      }
+    }
+
+    function displayInitialMessage() {
+      const messageDiv = document.createElement("div");
+      messageDiv.className = "message bot";
+      messageDiv.innerHTML = `
+        <div class="message-content">
+          🎉 <strong>Connection Established!</strong><br/>
+          You matched with <strong>${matchedDevName}</strong><br/>
+          <br/>
+          💬 You can chat anonymously here. When you're ready, you can reveal your identity or suggest collaborating on projects!
+        </div>
+      `;
+      document.getElementById("chatBox").appendChild(messageDiv);
+      scrollToBottom();
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById("chatInput");
+      const message = input.value.trim();
+
+      if(!message) return;
+
+      // User message
+      const userMsgDiv = document.createElement("div");
+      userMsgDiv.className = "message user";
+      userMsgDiv.innerHTML = `<div class="message-content">🔐 ${message}</div>`;
+      document.getElementById("chatBox").appendChild(userMsgDiv);
+
+      input.value = "";
+      scrollToBottom();
+
+      // Simulated response
+      setTimeout(() => {
+        const responses = [
+          "That sounds interesting! Tell me more 🤔",
+          "I like your thinking! How would that work? 💭",
+          "Cool idea! Are you looking for collaboration? 🚀",
+          "I've been working on something similar! 🔧",
+          "That aligns with my vision too! 🎯",
+          "Let's discuss this further! I'm interested 👍"
+        ];
+
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        const botMsgDiv = document.createElement("div");
+        botMsgDiv.className = "message bot";
+        botMsgDiv.innerHTML = `<div class="message-content">${randomResponse}</div>`;
+        document.getElementById("chatBox").appendChild(botMsgDiv);
+        scrollToBottom();
+      }, 800);
+    }
+
+    function scrollToBottom() {
+      const chatBox = document.getElementById("chatBox");
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function shareIdea() {
+      const idea = prompt("💡 Share your project idea (keep it concise):");
+      if(idea) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "message user";
+        messageDiv.innerHTML = `<div class="message-content">💡 <strong>Project Idea:</strong> ${idea}</div>`;
+        document.getElementById("chatBox").appendChild(messageDiv);
+        
+        setTimeout(() => {
+          const botMsgDiv = document.createElement("div");
+          botMsgDiv.className = "message bot";
+          botMsgDiv.innerHTML = `<div class="message-content">⭐ This sounds like a great project! Shall we move to the vault to secure it and add team members? 🔒</div>`;
+          document.getElementById("chatBox").appendChild(botMsgDiv);
+          scrollToBottom();
+        }, 1000);
+      }
+    }
+
+    function revealIdentity() {
+      if(!identityRevealed) {
+        const userName = localStorage.getItem("devMatchUser") ? JSON.parse(localStorage.getItem("devMatchUser")).name : "Developer";
+        
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "message user";
+        messageDiv.innerHTML = `<div class="message-content">👤 I'm <strong>${userName}</strong> from the platform. Happy to collaborate! 🎉</div>`;
+        document.getElementById("chatBox").appendChild(messageDiv);
+        
+        setTimeout(() => {
+          const botMsgDiv = document.createElement("div");
+          botMsgDiv.className = "message bot";
+          botMsgDiv.innerHTML = `<div class="message-content">Great to meet you, ${userName}! 🤝 Let's make something amazing together!</div>`;
+          document.getElementById("chatBox").appendChild(botMsgDiv);
+          scrollToBottom();
+        }, 1000);
+        
+        identityRevealed = true;
+      } else {
+        alert("🔓 Your identity is already revealed!");
+      }
+    }
+
+    function endChat() {
+      if(confirm("❌ End this chat? You can always start a new conversation later.")) {
+        alert("Chat ended. You can connect with other developers from your dashboard! 👋");
+        window.location.href = "dashboard.html";
+      }
+    }
+
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+
+    function goToCertificate() {
+      window.location.href = "certificate.html";
+    }
+  </script>
 </body>
 </html>

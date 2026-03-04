@@ -3,42 +3,174 @@
 <head>
   <title>Domain Match</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .quiz-banner {
+      background: linear-gradient(135deg, #00ffff, #00ff88);
+      color: #000;
+      padding: 25px;
+      border-radius: 12px;
+      margin: 30px auto;
+      max-width: 600px;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-banner.completed {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 255, 255, 0.2));
+      color: white;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .quiz-info {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 20px;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+    }
+
+    .quiz-taken {
+      background: rgba(0, 255, 136, 0.3);
+      color: #00ff88;
+    }
+
+    .work-style-tag {
+      background: rgba(0, 255, 255, 0.2);
+      border: 1px solid #00ffff;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: #00ffff;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .match-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .match-header h1 {
+      margin-bottom: 15px;
+    }
+
+    .match-header p {
+      color: #b0b8c8;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    #loading {
+      text-align: center;
+      padding: 40px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #loading h3 {
+      font-size: 20px;
+      color: #00ff88;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero {
+      padding: 40px 20px;
+    }
+  </style>
 </head>
 <body>
 
-  <nav>
-    <h2>Dev-Match Secure</h2>
+  <nav class="navbar">
+    <h2 class="logo">Dev-Match Secure</h2>
+    <div class="navbar-menu">
+      <span class="cert-quick-access" title="Generate Ownership Certificate" onclick="goToCertificate()">📜</span>
+      <button class="start-btn" onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+    </div>
   </nav>
 
   <section class="hero">
-    <h1>Find Your Domain Team 🚀</h1>
+    <div class="match-header">
+      <h1>Find Your Domain Team 🚀</h1>
+      <p>Get paired with developers whose skills complement yours</p>
+    </div>
+
+    <div class="quiz-banner" id="quizBanner">
+      <span id="quizStatus">📊 Complete the Work Style Quiz before matching!</span>
+      <button class="start-btn" onclick="goToQuiz()" style="margin: 0; background: #000; color: #00ffff; font-weight: 700; padding: 10px 20px;">Take Quiz</button>
+    </div>
 
     <div class="match-controls">
       <select id="domainSelect">
-        <option value="">Select Domain</option>
-        <option value="web">Web Development</option>
-        <option value="ai">Artificial Intelligence</option>
-        <option value="cyber">Cyber Security</option>
-        <option value="design">UI/UX Design</option>
+        <option value="">Select Your Domain</option>
+        <option value="web">🌐 Web Development</option>
+        <option value="ai">🤖 Artificial Intelligence</option>
+        <option value="cyber">🔐 Cyber Security</option>
+        <option value="design">🎨 UI/UX Design</option>
       </select>
 
-      <button onclick="findMatch()" class="start-btn">Find Match</button>
+      <button onclick="findMatch()" class="start-btn">Find Matches</button>
     </div>
 
     <div id="loading" style="display:none;">
-      <h3>🤖 AI is analysing profiles...</h3>
+      <h3>🔍 Activating AI Radar...</h3>
+      <div class="radar-container">
+        <div class="radar-scanner"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-ring"></div>
+        <div class="radar-center"></div>
+        <div class="radar-text">Scanning for matches...</div>
+      </div>
     </div>
 
-    <div id="matchResults">
-
-    </div>
+    <div id="matchResults"></div>
 
     <div id="successPopup" class="popup">
-      🎉 Secure Collaboration Established
+      🎉 Connection Accepted! Ready to chat?
     </div>
   </section>
 
   <script src="script.js"></script>
+  <script>
+    window.addEventListener('load', function() {
+      checkQuizStatus();
+    });
+
+    function checkQuizStatus() {
+      const workStyle = localStorage.getItem("userWorkStyle");
+      const quizBanner = document.getElementById("quizBanner");
+      
+      if(workStyle) {
+        const style = JSON.parse(workStyle);
+        quizBanner.classList.add("completed");
+        quizBanner.innerHTML = `
+          <span class="quiz-info quiz-taken">✅ Quiz Completed!</span>
+          <span class="work-style-tag">${style.icon} ${style.type}</span>
+        `;
+      }
+    }
+
+    function goToQuiz() {
+      window.location.href = "quiz.html";
+    }
+
+    function goToCertificate() {
+      window.location.href = "certificate.html";
+    }
+  </script>
 
 </body>
 </html>
